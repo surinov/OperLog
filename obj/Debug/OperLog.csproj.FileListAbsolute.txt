@@ -1,0 +1,8 @@
+C:\Users\surinchik\source\repos\OperLog\bin\Debug\OperLog.exe.config
+C:\Users\surinchik\source\repos\OperLog\bin\Debug\OperLog.exe
+C:\Users\surinchik\source\repos\OperLog\bin\Debug\OperLog.pdb
+C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.csprojAssemblyReference.cache
+C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.Properties.Resources.resources
+C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.csproj.GenerateResource.cache
+C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.exe
+C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.pdb
