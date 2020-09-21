@@ -8,6 +8,6 @@ namespace OperLog
 {
     class Sender
     {
-
+        //Send voids via telegram
     }
 }
