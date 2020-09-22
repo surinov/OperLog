@@ -6,3 +6,16 @@ C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.Properties.Resources.r
 C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.csproj.GenerateResource.cache
 C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.exe
 C:\Users\surinchik\source\repos\OperLog\obj\Debug\OperLog.pdb
+C:\Users\surinchik\Documents\GitHub\OperLog\obj\Debug\OperLog.csprojAssemblyReference.cache
+C:\Users\surinchik\Documents\GitHub\OperLog\obj\Debug\OperLog.Properties.Resources.resources
+C:\Users\surinchik\Documents\GitHub\OperLog\obj\Debug\OperLog.csproj.GenerateResource.cache
+C:\Users\surinchik\Documents\GitHub\OperLog\obj\Debug\OperLog.exe
+C:\Users\surinchik\Documents\GitHub\OperLog\obj\Debug\OperLog.pdb
+C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\OperLog.exe.config
+C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\OperLog.exe
+C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\OperLog.pdb
+C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\Newtonsoft.Json.dll
+C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\Telegram.Bot.dll
+C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\Newtonsoft.Json.xml
+C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\Telegram.Bot.xml
+C:\Users\surinchik\Documents\GitHub\OperLog\obj\Debug\OperLog.csproj.CopyComplete
