@@ -2,10 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Runtime.InteropServices;
 using Telegram.Bot;
-using Telegram.Bot.Args;
-using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
 
 namespace OperLog
@@ -40,23 +37,21 @@ namespace OperLog
                     if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
                     {
                         if (message.Text == "/say")
-                        {
+                        { 
                             SendMessage(message.Chat.Id, "test");
                         }
                         if (message.Text == "/myid")
-                        {
-                            //await Bot.SendPhotoAsync(message.Chat.Id, "http://aftamat4ik.ru/wp-content/uploads/2017/03/photo_2016-12-13_23-21-07.jpg", "Revolution!");
+                        { 
                             SendMessage(message.Chat.Id, message.Chat.Id.ToString());
                         }
                     }
                 };
 
-                // запускаем прием обновлений
                 Bot.StartReceiving();
             }
             catch (Telegram.Bot.Exceptions.ApiRequestException ex)
             {
-                Console.WriteLine(ex.Message); // если ключ не подошел - пишем об этом в консоль отладки
+                Console.WriteLine(ex.Message);
             }
 
         }
@@ -68,11 +63,19 @@ namespace OperLog
 
         public async void SendLog(string text)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-            const string screen = @"C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\icon.png";
-            using (var fileStream = new FileStream(screen, FileMode.Open, FileAccess.Read, FileShare.Read))
+            try
             {
-                await Bot.SendPhotoAsync(289675402, new InputOnlineFile(fileStream),text);
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
+                                                       SecurityProtocolType.Tls;
+                const string screen = @"C:\Users\surinchik\Documents\GitHub\OperLog\bin\Debug\icon.png";
+                using (var fileStream = new FileStream(screen, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    await Bot.SendPhotoAsync(289675402, new InputOnlineFile(fileStream), text);
+                }
+            }
+            catch (Telegram.Bot.Exceptions.ApiRequestException ex)
+            {
+                SendMessage(289675402, "Exeption!!");
             }
         }
     }

