@@ -81,7 +81,7 @@ namespace OperLog
            if (keyid == Keys.D7) { key = "7"; return key; }
            if (keyid == Keys.D8) { key = "8"; return key; }
            if (keyid == Keys.D9) { key = "9"; return key; }
-           if (keyid == Keys.Space) { key = " "; return key;}
+           if (keyid == Keys.Space) { key = " "; return key; }
            if (keyid == Keys.Escape) { key = "ESC"; return key; }
            if (keyid == Keys.Back) { key = "<-"; return key; }
            if (keyid == Keys.Enter) { key = " NL"; return key; }

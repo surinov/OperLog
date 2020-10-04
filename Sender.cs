@@ -11,7 +11,9 @@ namespace OperLog
     {
         BackgroundWorker _bw;
         TelegramBotClient Bot = new Telegram.Bot.TelegramBotClient("1390500172:AAGZpceToZXEFcj1cAu7emYqp9APgKroxBw");
-        public const int adminID = 289675402;
+        public const int AdminId = 289675402;
+        public bool SetMode = false;
+        public bool SetParam = false;
         public void Main() {
             this._bw = new BackgroundWorker();
             this._bw.DoWork += Bot_Tg;
@@ -28,17 +30,43 @@ namespace OperLog
                     var update = evu.Update;
                     var message = update.Message;
                     if (message == null) return;
-                    if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
+                    if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text & SetMode == false & SetParam == false)
                     {
                         switch (message.Text)
                         {
                             case "/state":
                                 SendMessage(message.Chat.Id, "State: in progress");
                                 break;
+                            case "/settings":
+                                SendMessage(message.Chat.Id, "Введите номер параметра\n" +
+                                                             "1. Частота отправки лога" +
+                                                             "\n2. Выйти из режима");
+                                SetMode = true;
+                                break;
                             case "/myid":
                                 SendMessage(message.Chat.Id, message.Chat.Id.ToString());
                                 break;
                         }
+                    }
+                    else if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text & SetMode == true & SetParam == false)
+                    {
+                        if (message.Text.Contains("1") || message.Text.Contains("1."))
+                        {
+                            SendMessage(message.Chat.Id, "Введите значение");
+                            SetParam = true;
+                        }
+                        else if (message.Text == "2")
+                        {
+                            SetMode = false;
+                            SendMessage(message.Chat.Id, "Режим настройки отключен");
+                        }
+                    }
+                    else if (message.Type == Telegram.Bot.Types.Enums.MessageType.Text & SetMode == true & SetParam == true)
+                    {
+                        int.TryParse(message.Text, out int param);
+                        SendMessage(message.Chat.Id, "Значение " + param + " установлено");
+                        SetParam = false;
+                        SetMode = false;
                     }
                 };
                 Bot.StartReceiving();
@@ -58,11 +86,11 @@ namespace OperLog
                                                        SecurityProtocolType.Tls;
                 try {
                     using (var fileStream = new FileStream(picpath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-                        await Bot.SendPhotoAsync(adminID, new InputOnlineFile(fileStream), text);
+                        await Bot.SendPhotoAsync(AdminId, new InputOnlineFile(fileStream), text);
                     }
                 }
                 catch {
-                    await Bot.SendTextMessageAsync(adminID, "No screen" + text);
+                    await Bot.SendTextMessageAsync(AdminId, "No screen" + text);
                 }
             }
             catch (Telegram.Bot.Exceptions.ApiRequestException ex) {
